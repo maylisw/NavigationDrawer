@@ -3,6 +3,8 @@ package com.example.maylisw.navigationdrawer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -80,10 +82,25 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //Prepare a null fragment
+        Fragment currentFragment = null;
+
         if (id == R.id.nav_thing_1) {
-            // Handle the camera action
+            // Load our  FragmentOne here
+            currentFragment = new FragmentOne();
         } else if (id == R.id.nav_thing_2) {
 
+        }
+
+        //tell the fragment manager that if our
+        //current fragment isn't null, to replace
+        //whatever is there with it.
+        FragmentManager fm = getSupportFragmentManager();
+        if(currentFragment != null)
+        {
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, currentFragment)
+                    .commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
